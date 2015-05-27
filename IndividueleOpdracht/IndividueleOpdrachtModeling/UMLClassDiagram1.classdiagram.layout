@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="UMLClassDiagram1">
+  <logicalClassDesignerModelMoniker Id="8d6c6e46-a1f0-4202-ae71-482d5a71141e" />
+  <nestedChildShapes>
+    <classShape Id="0694d66e-06b2-4055-bd49-baa37b10feec" absoluteBounds="1.5, 1.25, 1.5, 1.0624999801317849" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
+      <classMoniker Id="65dc1c01-64d5-4dbc-913a-e5de3815e0ad" LastKnownName="TierModel : IDatabaseModel" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="2d0cfbcf-b968-42c9-b15e-e9a250030450" absoluteBounds="1.515, 1.6400000000000001, 1.4700000000000002, 0.36132811258236563" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="d62d305b-5742-44ae-8f67-b004f483d793" absoluteBounds="1.515, 2.0113281125823654, 1.4700000000000002, 0.2011718675494194" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <interfaceShape Id="2fdecaa9-f708-46ea-8a6d-060c7b097ba3" absoluteBounds="0.875, 2.75, 1.5, 0.90234373509883881" hideQualifiedName="false" increaseHeight="0" customColor="207, 223, 191">
+      <interfaceMoniker Id="f1d61635-6af1-410a-ae1b-b684878cea13" LastKnownName="IDatabaseModel" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="fa72865a-f496-40e5-b8d7-52ef3b5beb8c" absoluteBounds="0.89000000000000012, 3.14, 1.4700000000000002, 0.2011718675494194" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="855b1f69-5b0f-4ecd-b3e6-994dc8eddaa3" absoluteBounds="0.89000000000000012, 3.3511718675494193, 1.4700000000000002, 0.2011718675494194" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </interfaceShape>
+  </nestedChildShapes>
+</logicalClassDesignerDiagram>
