@@ -305,6 +305,25 @@ namespace IndividueleOpdracht.Controllers
             return projectModel;
         }
 
+        public int GetNumberOfBackingsOfProject(int projectid)
+        {
+            NpgsqlCommand command = new NpgsqlCommand("Select count(*) from backing where projectid = :value1 ;", DatabaseController.Connection);
+
+            command.Parameters.Add("value1", NpgsqlDbType.Integer);
+            command.Parameters[0].Value = projectid;
+
+            using (NpgsqlDataReader dr = command.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    return Convert.ToInt32(dr[0]);
+                }
+
+            }
+
+            return 0;
+        }
+
         /// <summary>Gets all the commentmodels of a project.</summary>
         /// <param name="id">The id.</param>
         /// <param name="projectModel">The project model.</param>

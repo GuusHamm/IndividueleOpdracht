@@ -1,7 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ProjectViewer.aspx.cs" Inherits="IndividueleOpdracht.ProjectViewer" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="panel panel-default col-md-12">
+    <div class="panel panel-default col-md-12" runat="server" id="PageContents">
+        <div runat="server" id="ExtraStuffDiv">
+            
+        </div>
         <asp:ListView ID="ProjectView" runat="server" OnItemDataBound="ProjectView_OnItemDataBound">
             <ItemTemplate>
                 <div class="well">
@@ -9,8 +12,7 @@
                             <asp:Literal runat="server" ID="LiteralNaam"></asp:Literal>
                         </h3>
                         <asp:Literal runat="server" ID="LiteralBeschrijving"></asp:Literal><br/>
-                        <asp:LinkButton ID="LearnMoreButton" runat="server" OnClick="LearnMoreButton_OnClick" CssClass="btn btn-info" >Learn more</asp:LinkButton>
-
+                       
                         <div class="well">
                             <h5>
                                 <a href="%">
@@ -28,10 +30,11 @@
                             <p>
                                 <asp:Literal runat="server" ID="LiteralPercentageComplete"></asp:Literal>
                             </p>
-
+                             <p>
+                                <asp:Literal runat="server" ID="LiteralBackings"></asp:Literal>
+                            </p>
                         </div>
                     </div>
-
             </ItemTemplate>
         </asp:ListView>
         <div class="col-md-3">

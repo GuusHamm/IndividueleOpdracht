@@ -12,12 +12,5 @@ namespace IndividueleOpdracht.Models
     {
         string Id { get; set; }
 
-        bool Create();
-
-        bool Read();
-
-        bool Update();
-
-        bool Destroy();
     }
 }

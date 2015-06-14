@@ -13,6 +13,24 @@ namespace IndividueleOpdracht {
     public partial class ProjectViewer {
         
         /// <summary>
+        /// PageContents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl PageContents;
+        
+        /// <summary>
+        /// ExtraStuffDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ExtraStuffDiv;
+        
+        /// <summary>
         /// ProjectView control.
         /// </summary>
         /// <remarks>

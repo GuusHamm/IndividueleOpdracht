@@ -1,46 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ProjectViewer.aspx.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The project viewer.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace IndividueleOpdracht
 {
+    #region
+
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Web.UI.WebControls;
+
     using IndividueleOpdracht.Controllers;
     using IndividueleOpdracht.Models;
 
+    #endregion
+
+    /// <summary>The project viewer.</summary>
     public partial class ProjectViewer : System.Web.UI.Page
     {
-
-        private List<ProjectModel> projectModels;
-
+        /// <summary>The project controller.</summary>
         private ProjectController projectController = new ProjectController();
 
+        /// <summary>The project models.</summary>
+        private List<ProjectModel> projectModels;
+
+        /// <summary>The page_ load.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+       [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1121:UseBuiltInTypeAlias", Justification = "Reviewed. Suppression is OK here.")]
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<ProjectModel> data = this.projectController.GetProjects(Convert.ToInt32(Request.QueryString["id"]));
+            int id;
             
-            if (data != null)
+            if (Int32.TryParse(Request.QueryString["id"], out id))
             {
-                ProjectView.DataSource = data;
-            }
+                List<ProjectModel> data = this.projectController.GetProjects(id);
 
-            foreach (ProjectModel projectModel in data)
-            {
-                projectModel.AddComments(projectController.GetCommentsOfProject(0, projectModel));
-                CommentView.DataSource = projectModel.Comments;
-                projectModel.AddTags(projectController.GetTagOfProject(0,projectModel));
-                ProjectTagView.DataSource = projectModel.Tags;
-                List<TierModel> tierModels = projectController.GetTiersOfProject(0, projectModel);
-                TierViewer.DataSource = tierModels;
-                foreach (TierModel tierModel in tierModels)
+                if (data != null)
                 {
-                    TierDD.Items.Add(new ListItem(tierModel.Naam, tierModel.Id));
+                    ProjectView.DataSource = data;
                 }
+
+                foreach (ProjectModel projectModel in data)
+                {
+                    projectModel.AddComments(projectController.GetCommentsOfProject(0, projectModel));
+                    CommentView.DataSource = projectModel.Comments;
+                    projectModel.AddTags(projectController.GetTagOfProject(0, projectModel));
+                    ProjectTagView.DataSource = projectModel.Tags;
+                    List<TierModel> tierModels = projectController.GetTiersOfProject(0, projectModel);
+                    TierViewer.DataSource = tierModels;
+                    foreach (TierModel tierModel in tierModels)
+                    {
+                        TierDD.Items.Add(new ListItem(tierModel.Naam, tierModel.Id));
+                    }
+                }
+
+                bool newProject = Convert.ToBoolean(Request.QueryString["newproject"]);
+                if (newProject)
+                {
+                    ExtraStuffDiv.InnerHtml = @"<div class=""alert alert-dismissable alert-success"">    <button type=""button"" class=""close"" data-dismiss=""alert"">×</button>    Hier is je nieuwe project!.</div>";
+                }
+            }
+            else
+            {
+                PageContents.InnerHtml = @"<div class=""alert alert-dismissable alert-danger"">    <button type=""button"" class=""close"" data-dismiss=""alert"">×</button> Om deze pagina weer te geven moet een id worden opgegeven.</div>";
             }
         }
 
+        /// <summary>The page_ pre render.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void Page_PreRender(object sender, EventArgs e)
         {
             ProjectView.DataBind();
@@ -49,7 +84,9 @@ namespace IndividueleOpdracht
             TierViewer.DataBind();
         }
 
-
+        /// <summary>The project view_ on item data bound.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void ProjectView_OnItemDataBound(object sender, ListViewItemEventArgs e)
         {
             ProjectModel projectModel = e.Item.DataItem as ProjectModel;
@@ -83,7 +120,7 @@ namespace IndividueleOpdracht
             {
                 decimal percentage = Convert.ToDecimal(projectModel.GeldBehaald) / Convert.ToDecimal(projectModel.GeldNodig);
                 percentage = percentage * 100;
-                percentage = Decimal.Round(percentage, 0);
+                percentage = decimal.Round(percentage, 0);
                 percentageCompleteLiteral.Text = Convert.ToString(percentage) + "% goal behaald";
             }
 
@@ -92,8 +129,17 @@ namespace IndividueleOpdracht
             {
                 categorieLiteral.Text = projectModel.Categorie.Naam;
             }
+
+            Literal backingsLiteral = e.Item.FindControl("LiteralBackings") as Literal;
+            if (backingsLiteral != null)
+            {
+                backingsLiteral.Text = projectController.GetNumberOfBackingsOfProject(Convert.ToInt32(projectModel.Id)).ToString() + " backings";
+            }
         }
 
+        /// <summary>The comment view_ on item data bound.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void CommentView_OnItemDataBound(object sender, ListViewItemEventArgs e)
         {
             CommentModel comment = e.Item.DataItem as CommentModel;
@@ -104,6 +150,9 @@ namespace IndividueleOpdracht
             commentText.Text = comment.Bericht;
         }
 
+        /// <summary>The project tag view_ on item data bound.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void ProjectTagView_OnItemDataBound(object sender, ListViewItemEventArgs e)
         {
             TagModel tag = e.Item.DataItem as TagModel;
@@ -111,24 +160,24 @@ namespace IndividueleOpdracht
             literalTag.Text = tag.Naam;
         }
 
+        /// <summary>The comment button_ on click.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void CommentButton_OnClick(object sender, EventArgs e)
         {
-            //todo make dynamic
+            // todo make dynamic
             foreach (ProjectModel projectModel in projectController.GetProjects(Convert.ToInt32(Request.QueryString["id"])))
             {
                 List<CommentModel> comments = projectModel.Comments;
-                comments.Add(projectController.CreateComment(CommentTextBox.Text,1,Convert.ToInt32(projectModel.Id)));
+                comments.Add(projectController.CreateComment(CommentTextBox.Text, 1, Convert.ToInt32(projectModel.Id)));
                 projectModel.AddComments(comments);
                 Response.Redirect(Request.RawUrl);
             }
-            
         }
-
-        protected void LearnMoreButton_OnClick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+        
+        /// <summary>The back button_ on click.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void BackButton_OnClick(object sender, EventArgs e)
         {
             CommentTextBoxValidator.Enabled = false;
@@ -136,6 +185,9 @@ namespace IndividueleOpdracht
             Response.Redirect(Request.RawUrl);
         }
 
+        /// <summary>The tier viewer_ on item data bound.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void TierViewer_OnItemDataBound(object sender, ListViewItemEventArgs e)
         {
             TierModel tier = e.Item.DataItem as TierModel;

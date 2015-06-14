@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>c:\users\guus\source\repos\individueleopdracht\individueleopdracht\individueleopdracht\createaproject.aspx.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace IndividueleOpdracht
+{
+    using IndividueleOpdracht.Controllers;
+    using IndividueleOpdracht.Models;
+
+    public partial class CreateAProject : System.Web.UI.Page
+    {
+        ProjectController projectController = new ProjectController();
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            List&lt;TagModel&gt; tags = projectController.GetAllTags();
+            List&lt;CategorieModel&gt; categories = projectController.GetAllCategories();
+
+            foreach (CategorieModel categorie in categories)
+            {
+                CategorieDD.Items.Add(new ListItem(categorie.Naam,categorie.Id));
+            }
+
+            foreach (TagModel tagModel in tags)
+            {
+                TagsDD.Items.Add(new ListItem(tagModel.Naam,tagModel.Id));
+            }
+
+        }
+
+        protected void SubmitButton_OnClick(object sender, EventArgs e)
+        {
+            ProjectModel projectModel = projectController.CreateProject(
+                ProjectBeschrijvingTextbox.Text,
+                ProjectNameTextbox.Text,
+                1,
+                Convert.ToInt32(CategorieDD.SelectedValue),
+                Convert.ToInt32(ProjectGeldNodigTextBox.Text),
+                Convert.ToInt32(ProjectTijdNodigTextBox.Text));
+
+            Response.Redirect(&quot;ProjectViewer.aspx?id=&quot; + projectModel.Id);
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,9,18,10,0],[19,13,19,66,0],[20,13,20,84,0],[22,13,22,20,0],[22,50,22,60,0],[22,22,22,46,0],[23,13,23,14,0],[24,17,24,82,0],[25,13,25,14,0],[22,47,22,49,0],[27,13,27,20,0],[27,43,27,47,0],[27,22,27,39,0],[28,13,28,14,0],[29,17,29,75,0],[30,13,30,14,0],[27,40,27,42,0],[32,9,32,10,0],[35,9,35,10,0],[36,13,42,64,0],[44,13,44,75,0],[45,9,45,10,0],[15,9,15,71,0]]);
+    </script>
+  </body>
+</html>
