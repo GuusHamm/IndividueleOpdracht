@@ -16,7 +16,7 @@ namespace IndividueleOpdracht.Models
     #endregion
 
     /// <summary>The tag model.</summary>
-    public class TagModel:IDatabaseModel
+    public class TagModel : IDatabaseModel
     {
         /// <summary>Initializes a new instance of the <see cref="TagModel"/> class.</summary>
         /// <param name="naam">The naam.</param>

@@ -5,6 +5,8 @@
 <%@ Import Namespace="System.Web.UI.WebControls" %>
 <%@ Import Namespace="System.Web.UI.WebControls.Expressions" %>
 <%@ Import Namespace="System.Web.UI.WebControls.WebParts" %>
+<%@ Register Src="~/AProject.ascx" TagPrefix="uc1" TagName="AProject" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="panel panel-default col-md-12" runat="server" id="PageContents">
@@ -13,34 +15,7 @@
         </div>
         <asp:ListView ID="ProjectView" runat="server" OnItemDataBound="ProjectView_OnItemDataBound">
             <ItemTemplate>
-                <div class="well">
-                        <h3>
-                            <asp:Literal runat="server" ID="LiteralNaam"></asp:Literal>
-                        </h3>
-                        <asp:Literal runat="server" ID="LiteralBeschrijving"></asp:Literal><br/>
-                       
-                        <div class="well">
-                            <h5>
-                                <a href="%">
-                                    <asp:Literal runat="server" ID="LiteralCreator"></asp:Literal>
-                                </a>
-                            </h5>
-                            <h5>
-                                <a href="%">
-                                    <asp:Literal runat="server" ID="LiteralCategorie"></asp:Literal>
-                                </a>
-                            </h5>
-                            <p>
-                                <asp:Literal runat="server" ID="LiteralViews"></asp:Literal>
-                            </p>
-                            <p>
-                                <asp:Literal runat="server" ID="LiteralPercentageComplete"></asp:Literal>
-                            </p>
-                             <p>
-                                <asp:Literal runat="server" ID="LiteralBackings"></asp:Literal>
-                            </p>
-                        </div>
-                    </div>
+                <uc1:aproject runat="server" id="AProject" />
             </ItemTemplate>
         </asp:ListView>
         <div class="col-md-3">
@@ -65,7 +40,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-6">
             <div class="well">
                 <div class="form form-horizontal">
                     <fieldset>
@@ -96,7 +71,6 @@
                 <div class="well">
                     <h3>Tags</h3>
                     <asp:ListView ID="ProjectTagView" runat="server" OnItemDataBound="ProjectTagView_OnItemDataBound">
-
                         <ItemTemplate>
                             <p>
                                 <asp:Literal runat="server" ID="LiteralTag"></asp:Literal>

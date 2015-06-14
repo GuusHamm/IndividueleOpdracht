@@ -196,6 +196,7 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="AProject.ascx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\oldbootstrap.css" />
     <Content Include="Content\oldbootstrap.min.css" />
@@ -381,6 +382,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AProject.ascx.cs">
+      <DependentUpon>AProject.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AProject.ascx.designer.cs">
+      <DependentUpon>AProject.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>

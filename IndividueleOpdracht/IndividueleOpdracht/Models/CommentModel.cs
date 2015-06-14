@@ -16,7 +16,7 @@ namespace IndividueleOpdracht.Models
     #endregion
 
     /// <summary>The comment model.</summary>
-    public class CommentModel: IDatabaseModel
+    public class CommentModel : IDatabaseModel
 
 {
         /// <summary>Initializes a new instance of the <see cref="CommentModel"/> class.</summary>

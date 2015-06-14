@@ -302,6 +302,50 @@ namespace IndividueleOpdracht.Controllers
             return projectModel;
         }
 
+        public List<ProjectModel> GetProjectsByName(string criteria)
+        {
+            List<ProjectModel> projectModels = new List<ProjectModel>();
+            NpgsqlCommand command;
+
+            command = new NpgsqlCommand(
+                    "Select p.*,u.*,c.*  from projects p join users u on (p.creatorid = u.id) join categorie c on (p.categorieid = c.id) where p.naam like upper(:value1) or p.beschrijving like upper(:value1)",
+                    DatabaseController.Connection);
+            command.Parameters.Add("value1", NpgsqlDbType.Text);
+            command.Parameters[0].Value = "%" + criteria + "%";
+            ProjectModel projectModel = null;
+            using (NpgsqlDataReader dr = command.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    string beschrijving = Convert.ToString(dr[1]);
+                    string naam = Convert.ToString(dr[2]);
+                    AccountModel.Soort soort;
+                    AccountModel.Soort.TryParse(Convert.ToString(dr[15]), false, out soort);
+                    AccountModel creator = new AccountModel(Convert.ToString(dr[11]), Convert.ToString(dr[12]), Convert.ToString(dr[13]), Convert.ToString(dr[14]), soort, Convert.ToString(dr[16]), Convert.ToString(dr[17]), Convert.ToString(dr[18]), Convert.ToString(dr[19]), Convert.ToString(dr[20]));
+                    int geldNodig = Convert.ToInt32(dr[5]);
+                    int geldBehaald = Convert.ToInt32(dr[6]);
+                    DateTime startDate;
+                    DateTime.TryParse(Convert.ToString(dr[7]), out startDate);
+                    DateTime endDate;
+                    DateTime.TryParse(Convert.ToString(dr[8]), out endDate);
+                    int views = Convert.ToInt32(dr[9]);
+                    projectModel = new ProjectModel(
+                        beschrijving,
+                        naam,
+                        creator,
+                        geldNodig,
+                        startDate,
+                        endDate,
+                        geldBehaald,
+                        views,
+                        new CategorieModel(dr[24].ToString(), dr[25].ToString()));
+                    projectModel.Id = dr[0].ToString();
+                    projectModels.Add(projectModel);
+                }
+            }
+
+            return projectModels;
+        }
         /// <summary>The get number of backings of project.</summary>
         /// <param name="projectid">The projectid.</param>
         /// <returns>The <see cref="int"/>.</returns>
@@ -544,6 +588,56 @@ namespace IndividueleOpdracht.Controllers
             return projects;
         }
 
+        /// <summary>Gets the projects from the database which have more backings then the threshold.</summary>
+        /// <param name="threshold">The threshold.</param>
+        /// <returns>The <see cref="List"/>.</returns>
+        public List<ProjectModel> GetPopulairProjects(int threshold)
+        {
+            List<ProjectModel> projects = new List<ProjectModel>();
+            NpgsqlCommand command;
+           
+                command =
+                    new NpgsqlCommand(
+                        "Select p.*,u.*,c.*  from projects p join users u on (p.creatorid = u.id) join categorie c on (p.categorieid = c.id) where (select count(*) from backing where projectid = p.id) > :value1 ;",
+                        DatabaseController.Connection);
+
+                command.Parameters.Add("value1", NpgsqlDbType.Integer);
+                command.Parameters[0].Value = threshold;
+            
+
+            using (NpgsqlDataReader dr = command.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    string beschrijving = Convert.ToString(dr[1]);
+                    string naam = Convert.ToString(dr[2]);
+                    AccountModel.Soort soort;
+                    AccountModel.Soort.TryParse(Convert.ToString(dr[15]), false, out soort);
+                    AccountModel creator = new AccountModel(Convert.ToString(dr[11]), Convert.ToString(dr[12]), Convert.ToString(dr[13]), Convert.ToString(dr[14]), soort, Convert.ToString(dr[16]), Convert.ToString(dr[17]), Convert.ToString(dr[18]), Convert.ToString(dr[19]), Convert.ToString(dr[20]));
+                    int geldNodig = Convert.ToInt32(dr[5]);
+                    int geldBehaald = Convert.ToInt32(dr[6]);
+                    DateTime startDate;
+                    DateTime.TryParse(Convert.ToString(dr[7]), out startDate);
+                    DateTime endDate;
+                    DateTime.TryParse(Convert.ToString(dr[8]), out endDate);
+                    int views = Convert.ToInt32(dr[9]);
+                    ProjectModel project = new ProjectModel(
+                        beschrijving,
+                        naam,
+                        creator,
+                        geldNodig,
+                        startDate,
+                        endDate,
+                        geldBehaald,
+                        views,
+                        new CategorieModel(dr[24].ToString(), dr[25].ToString()));
+                    project.Id = dr[0].ToString();
+                    projects.Add(project);
+                }
+            }
+
+            return projects;
+        }
         /// <summary>Gets the tiermodel beloning to the id.</summary>
         /// <param name="id">The id.</param>
         /// <param name="tierModel">The tier model.</param>

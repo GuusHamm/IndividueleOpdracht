@@ -90,51 +90,12 @@ namespace IndividueleOpdracht
         protected void ProjectView_OnItemDataBound(object sender, ListViewItemEventArgs e)
         {
             ProjectModel projectModel = e.Item.DataItem as ProjectModel;
-            e.Item.ID = projectModel.Id;
-            Literal naamLiteral = e.Item.FindControl("LiteralNaam") as Literal;
-            if (naamLiteral != null)
-            {
-                naamLiteral.Text = projectModel.Naam;
-            }
+            
+            AProject aProject = e.Item.FindControl("AProject") as AProject;
 
-            Literal beschrijvingLiteral = e.Item.FindControl("LiteralBeschrijving") as Literal;
-            if (beschrijvingLiteral != null)
-            {
-                beschrijvingLiteral.Text = projectModel.Beschrijving;
-            }
-
-            Literal creatorLiteral = e.Item.FindControl("LiteralCreator") as Literal;
-            if (creatorLiteral != null)
-            {
-                creatorLiteral.Text = projectModel.Creator.Naam;
-            }
-
-            Literal viewsLiteral = e.Item.FindControl("LiteralViews") as Literal;
-            if (viewsLiteral != null)
-            {
-                viewsLiteral.Text = projectModel.Views.ToString() + " Views";
-            }
-
-            Literal percentageCompleteLiteral = e.Item.FindControl("LiteralPercentageComplete") as Literal;
-            if (percentageCompleteLiteral != null)
-            {
-                decimal percentage = Convert.ToDecimal(projectModel.GeldBehaald) / Convert.ToDecimal(projectModel.GeldNodig);
-                percentage = percentage * 100;
-                percentage = decimal.Round(percentage, 0);
-                percentageCompleteLiteral.Text = Convert.ToString(percentage) + "% goal behaald";
-            }
-
-            Literal categorieLiteral = e.Item.FindControl("LiteralCategorie") as Literal;
-            if (categorieLiteral != null)
-            {
-                categorieLiteral.Text = projectModel.Categorie.Naam;
-            }
-
-            Literal backingsLiteral = e.Item.FindControl("LiteralBackings") as Literal;
-            if (backingsLiteral != null)
-            {
-                backingsLiteral.Text = projectController.GetNumberOfBackingsOfProject(Convert.ToInt32(projectModel.Id)).ToString() + " backings";
-            }
+            aProject.FillUC(
+                projectModel,
+                projectController.GetNumberOfBackingsOfProject(Convert.ToInt32(projectModel.Id)));
         }
 
         /// <summary>The comment view_ on item data bound.</summary>

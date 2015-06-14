@@ -17,6 +17,8 @@ namespace IndividueleOpdracht
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
+    using IndividueleOpdracht.Controllers;
+
     #endregion
 
     /// <summary>The site master.</summary>
@@ -104,6 +106,11 @@ namespace IndividueleOpdracht
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             Context.GetOwinContext().Authentication.SignOut();
+        }
+
+        protected void SearchButton_OnClick(object sender, EventArgs e)
+        {
+         Response.Redirect("Project.aspx?search="+ SearchBox.Text);  
         }
     }
 

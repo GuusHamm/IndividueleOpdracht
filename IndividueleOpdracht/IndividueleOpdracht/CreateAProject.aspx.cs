@@ -60,6 +60,11 @@ namespace IndividueleOpdracht
                     Convert.ToInt32(ProjectGeldNodigTextBox.Text), 
                     Convert.ToInt32(ProjectTijdNodigTextBox.Text));
                 Response.Redirect("ProjectViewer.aspx?id=" + projectModel.Id+ "&newproject=true");
+
+                if (TagsDD.SelectedValue != "0")
+                {
+                    
+                }
             }
             else
             {

@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Project.aspx.cs" Inherits="IndividueleOpdracht.Project" %>
+
+<%@ Register TagPrefix="uc1" TagName="aproject" Src="~/AProject.ascx" %>
 <%@ Import Namespace="System.Web.DynamicData" %>
 <%@ Import Namespace="System.Web.UI" %>
 <%@ Import Namespace="System.Web.UI.WebControls" %>
@@ -10,40 +12,21 @@
     <div class="jumbotron">
         <h1>Projects
         </h1>
-        <a href="CreateAProject.aspx" class="btn btn-info btn-fab">+ </a>
+        <div class="col-md-6">
+            <asp:DropDownList ID="ProjectSelectionDD" runat="server" CssClass="form-control">
+            </asp:DropDownList>
+        </div>
+        <div class="col-md-4">
+            <asp:Button ID="BtnGotoProject" runat="server" OnClick="BtnGotoProject_OnClick" Text="Goto Project" CssClass="btn btn-default" />
+        </div>
     </div>
     <div class="panel panel-default col-md-12">
         <div class="panel-body">
-            <asp:ListView ID="ProjectView" runat="server" OnItemDataBound="ProjectView_OnItemDataBound"  OnItemCommand="ProjectView_OnItemCommand" ItemType="IndividueleOpdracht.Models.ProjectModel">
+            <asp:ListView ID="ProjectView" runat="server" OnItemDataBound="ProjectView_OnItemDataBound" OnItemCommand="ProjectView_OnItemCommand" ItemType="IndividueleOpdracht.Models.ProjectModel">
                 <ItemTemplate>
-                    <div class="well">
-                        <h3>
-                            <asp:Literal runat="server" ID="LiteralNaam"></asp:Literal>
-                        </h3>
-                        <asp:Literal runat="server" ID="LiteralBeschrijving"></asp:Literal><br/>
-                        <asp:LinkButton ID="LearnMoreButton" runat="server" OnClick="LearnMoreButton_OnClick" CssClass="btn btn-info" >Learn more</asp:LinkButton>
-
-                        <div class="well">
-                            <h5>
-                                <a href="%">
-                                    <asp:Literal runat="server" ID="LiteralCreator"></asp:Literal>
-                                </a>
-                            </h5>
-                            <h5>
-                                <a href="%">
-                                    <asp:Literal runat="server" ID="LiteralCategorie"></asp:Literal>
-                                </a>
-                            </h5>
-                            <p>
-                                <asp:Literal runat="server" ID="LiteralViews"></asp:Literal>
-                            </p>
-                            <p>
-                                <asp:Literal runat="server" ID="LiteralPercentageComplete"></asp:Literal>
-                            </p>
-
-                        </div>
+                    <div class="col-md-6">
+                        <uc1:aproject runat="server" ID="AProject" />
                     </div>
-
                 </ItemTemplate>
             </asp:ListView>
         </div>
