@@ -238,6 +238,28 @@ namespace IndividueleOpdracht.Controllers
             return null;
         }
 
+        /// <summary>The add tag to project.</summary>
+        /// <param name="projectModel">The project model.</param>
+        /// <param name="Tagid">The tagid.</param>
+        public void AddTagToProject(ProjectModel projectModel, int Tagid)
+        {
+            TagModel tagModel = GetTag(Tagid);
+
+            if (tagModel != null)
+            {
+                NpgsqlCommand command = new NpgsqlCommand(" insert into project_tag(projectid,tagid) values(:value1,:value2) ;", DatabaseController.Connection);
+
+                command.Parameters.Add("value1", NpgsqlDbType.Integer);
+                command.Parameters[0].Value = Convert.ToInt32(projectModel.Id);
+
+                command.Parameters.Add("value2", NpgsqlDbType.Integer);
+                command.Parameters[1].Value = Convert.ToInt32(tagModel.Id);
+
+                command.ExecuteNonQuery();
+            }
+        }
+      
+
         /// <summary>The delete tier.</summary>
         /// <param name="id">The id.</param>
         /// <returns>The <see cref="bool"/>.</returns>
@@ -638,6 +660,7 @@ namespace IndividueleOpdracht.Controllers
 
             return projects;
         }
+        
         /// <summary>Gets the tiermodel beloning to the id.</summary>
         /// <param name="id">The id.</param>
         /// <param name="tierModel">The tier model.</param>
@@ -677,6 +700,26 @@ namespace IndividueleOpdracht.Controllers
             }
 
             return tier;
+        }
+
+        public TagModel GetTag(int id)
+        {
+            TagModel tagModel = null;
+            NpgsqlCommand command = new NpgsqlCommand("select t.* from tag t where t.id = :value1 ;", DatabaseController.Connection);
+
+            command.Parameters.Add("value1", NpgsqlDbType.Integer);
+            command.Parameters[0].Value = id;
+            
+            using (NpgsqlDataReader dr = command.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    tagModel = new TagModel(dr[1].ToString(), dr[2].ToString());
+                    tagModel.Id = dr[0].ToString();
+                }
+            }
+
+            return tagModel;
         }
 
         /// <summary>Gets all the tagmodels in the database.</summary>

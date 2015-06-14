@@ -59,12 +59,12 @@ namespace IndividueleOpdracht
                     Convert.ToInt32(CategorieDD.SelectedValue), 
                     Convert.ToInt32(ProjectGeldNodigTextBox.Text), 
                     Convert.ToInt32(ProjectTijdNodigTextBox.Text));
-                Response.Redirect("ProjectViewer.aspx?id=" + projectModel.Id+ "&newproject=true");
-
                 if (TagsDD.SelectedValue != "0")
                 {
-                    
+                    projectController.AddTagToProject(projectModel, Convert.ToInt32(TagsDD.SelectedValue));
                 }
+
+                Response.Redirect("ProjectViewer.aspx?id=" + projectModel.Id+ "&newproject=true");
             }
             else
             {
