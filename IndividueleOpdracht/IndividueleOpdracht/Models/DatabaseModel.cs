@@ -1,44 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DatabaseModel.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The database model.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace IndividueleOpdracht.Models
 {
+    #region
+
     using IndividueleOpdracht.Controllers;
 
     using Npgsql;
 
+    #endregion
+
+    /// <summary>The database model.</summary>
     public abstract class DatabaseModel : IDatabaseModel
     {
+        /// <summary>The connection.</summary>
         private NpgsqlConnection connection = DatabaseController.Connection;
 
-        public string Id { get; set; }
-
+        /// <summary>Gets or sets the postgres command.</summary>
+        /// <value>The postgres command.</value>
         protected virtual NpgsqlCommand PostgresCommand { get; set; }
 
-        public virtual bool Create()
-        {
-            // TODO
-            return false;
-        }
-
-        public virtual bool Read()
-        {
-            // TODO
-            return false;
-        }
-
-        public virtual bool Update()
-        {
-            // TODO
-            return false;
-        }
-
-        public virtual bool Destroy()
-        {
-            // TODO
-            return false;
-        }
+        /// <summary>Gets or sets the id.</summary>
+        /// <value>The id.</value>
+        public string Id { get; set; }
     }
 }

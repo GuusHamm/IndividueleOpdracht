@@ -1,20 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CommentModel.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The comment model.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace IndividueleOpdracht.Models
 {
+    #region
+
+    using System;
+
+    #endregion
+
+    /// <summary>The comment model.</summary>
     public class CommentModel: IDatabaseModel
 
 {
-        public string Id { get; set; }
-        public int PosterId { get; private set; }
-        public int ReplyId { get; private set; }
-        public int ProjectId { get; private set; }
-        public string Bericht { get; private set; }
-        public DateTime PostDate { get; private set; }
-
+        /// <summary>Initializes a new instance of the <see cref="CommentModel"/> class.</summary>
+        /// <param name="posterId">The poster id.</param>
+        /// <param name="projectId">The project id.</param>
+        /// <param name="bericht">The bericht.</param>
+        /// <param name="postDate">The post date.</param>
         public CommentModel(int posterId, int projectId, string bericht, DateTime postDate)
         {
             this.PosterId = posterId;
@@ -23,6 +32,12 @@ namespace IndividueleOpdracht.Models
             this.Bericht = bericht;
         }
 
+        /// <summary>Initializes a new instance of the <see cref="CommentModel"/> class.</summary>
+        /// <param name="posterId">The poster id.</param>
+        /// <param name="replyId">The reply id.</param>
+        /// <param name="projectId">The project id.</param>
+        /// <param name="bericht">The bericht.</param>
+        /// <param name="postDate">The post date.</param>
         public CommentModel(int posterId, int replyId, int projectId, string bericht, DateTime postDate)
         {
             this.PosterId = posterId;
@@ -32,24 +47,29 @@ namespace IndividueleOpdracht.Models
             this.PostDate = postDate;
         }
 
-        public bool Create()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>Gets the poster id.</summary>
+        /// <value>The poster id.</value>
+        public int PosterId { get; private set; }
 
-        public bool Read()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>Gets the reply id.</summary>
+        /// <value>The reply id.</value>
+        public int ReplyId { get; private set; }
 
-        public bool Update()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>Gets the project id.</summary>
+        /// <value>The project id.</value>
+        public int ProjectId { get; private set; }
 
-        public bool Destroy()
-        {
-            throw new NotImplementedException();
+        /// <summary>Gets the bericht.</summary>
+        /// <value>The bericht.</value>
+        public string Bericht { get; private set; }
+
+        /// <summary>Gets the post date.</summary>
+        /// <value>The post date.</value>
+        public DateTime PostDate { get; private set; }
+
+        /// <summary>Gets or sets the id.</summary>
+        /// <value>The id.</value>
+        public string Id { get; set; }
+
         }
-}
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>c:\users\guus\source\repos\individueleopdracht\individueleopdracht\individueleopdracht\startup.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.Owin;
+using Owin;
+
+[assembly: OwinStartupAttribute(typeof(IndividueleOpdracht.Startup))]
+
+namespace IndividueleOpdracht
+{
+    using IndividueleOpdracht.Controllers;
+
+    public partial class Startup 
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            DatabaseController.Initialiaze();
+            this.ConfigureAuth(app);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[13,9,13,10,0],[14,13,14,46,0],[15,13,15,37,0],[16,9,16,10,0]]);
+    </script>
+  </body>
+</html>

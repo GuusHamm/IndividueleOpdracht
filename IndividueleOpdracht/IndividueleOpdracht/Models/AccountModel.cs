@@ -9,12 +9,6 @@
 
 namespace IndividueleOpdracht.Models
 {
-    #region
-
-    using System;
-
-    #endregion
-
     /// <summary>The account model.</summary>
     public class AccountModel : IDatabaseModel
     {

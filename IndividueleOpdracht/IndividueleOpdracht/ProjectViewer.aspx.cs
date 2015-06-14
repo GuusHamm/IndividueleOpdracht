@@ -38,7 +38,7 @@ namespace IndividueleOpdracht
         {
             int id;
             
-            if (Int32.TryParse(Request.QueryString["id"], out id))
+            if (int.TryParse(Request.QueryString["id"], out id))
             {
                 List<ProjectModel> data = this.projectController.GetProjects(id);
 
@@ -174,7 +174,7 @@ namespace IndividueleOpdracht
                 Response.Redirect(Request.RawUrl);
             }
         }
-        
+
         /// <summary>The back button_ on click.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>

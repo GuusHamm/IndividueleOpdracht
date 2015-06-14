@@ -1,4 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateAProject.aspx.cs" Inherits="IndividueleOpdracht.CreateAProject" %>
+<%@ Import Namespace="System.Web.DynamicData" %>
+<%@ Import Namespace="System.Web.UI" %>
+<%@ Import Namespace="System.Web.UI.WebControls" %>
+<%@ Import Namespace="System.Web.UI.WebControls" %>
+<%@ Import Namespace="System.Web.UI.WebControls.Expressions" %>
+<%@ Import Namespace="System.Web.UI.WebControls.WebParts" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 

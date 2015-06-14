@@ -1,20 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Site.Master.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The site master.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace IndividueleOpdracht
 {
+    #region
+
+    using System;
+    using System.Web;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    #endregion
+
+    /// <summary>The site master.</summary>
     public partial class SiteMaster : MasterPage
     {
+        /// <summary>The anti xsrf token key.</summary>
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
+
+        /// <summary>The anti xsrf user name key.</summary>
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
+
+        /// <summary>The _anti xsrf token value.</summary>
         private string _antiXsrfTokenValue;
 
+        /// <summary>The page_ init.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void Page_Init(object sender, EventArgs e)
         {
             // The code below helps to protect against XSRF attacks
@@ -34,43 +53,54 @@ namespace IndividueleOpdracht
 
                 var responseCookie = new HttpCookie(AntiXsrfTokenKey)
                 {
-                    HttpOnly = true,
+                    HttpOnly = true, 
                     Value = _antiXsrfTokenValue
                 };
                 if (FormsAuthentication.RequireSSL && Request.IsSecureConnection)
                 {
                     responseCookie.Secure = true;
                 }
+
                 Response.Cookies.Set(responseCookie);
             }
 
             Page.PreLoad += master_Page_PreLoad;
         }
 
+        /// <summary>The master_ page_ pre load.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        /// <exception cref="InvalidOperationException"></exception>
         protected void master_Page_PreLoad(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 // Set Anti-XSRF token
                 ViewState[AntiXsrfTokenKey] = Page.ViewStateUserKey;
-                ViewState[AntiXsrfUserNameKey] = Context.User.Identity.Name ?? String.Empty;
+                ViewState[AntiXsrfUserNameKey] = Context.User.Identity.Name ?? string.Empty;
             }
             else
             {
                 // Validate the Anti-XSRF token
                 if ((string)ViewState[AntiXsrfTokenKey] != _antiXsrfTokenValue
-                    || (string)ViewState[AntiXsrfUserNameKey] != (Context.User.Identity.Name ?? String.Empty))
+                    || (string)ViewState[AntiXsrfUserNameKey] != (Context.User.Identity.Name ?? string.Empty))
                 {
                     throw new InvalidOperationException("Validation of Anti-XSRF token failed.");
                 }
             }
         }
 
+        /// <summary>The page_ load.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>The unnamed_ logging out.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             Context.GetOwinContext().Authentication.SignOut();

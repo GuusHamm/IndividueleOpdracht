@@ -1,16 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="VerifyPhoneNumber.aspx.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The verify phone number.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace IndividueleOpdracht.Account
 {
+    #region
+
+    using System;
+    using System.Web;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+
+    #endregion
+
+    /// <summary>The verify phone number.</summary>
     public partial class VerifyPhoneNumber : System.Web.UI.Page
     {
+        /// <summary>The page_ load.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -19,11 +33,14 @@ namespace IndividueleOpdracht.Account
             PhoneNumber.Value = phonenumber;
         }
 
+        /// <summary>The code_ click.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void Code_Click(object sender, EventArgs e)
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Invalid code");
+                ModelState.AddModelError(string.Empty, "Invalid code");
                 return;
             }
 
@@ -44,7 +61,7 @@ namespace IndividueleOpdracht.Account
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
+            ModelState.AddModelError(string.Empty, "Failed to verify phone");
         }
     }
 }

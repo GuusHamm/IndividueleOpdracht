@@ -1,32 +1,50 @@
-﻿using System;
-using System.Web;
-using System.Web.UI;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Owin;
-using IndividueleOpdracht.Models;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Login.aspx.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The login.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace IndividueleOpdracht.Account
 {
+    #region
+
+    using System;
+    using System.Web;
+    using System.Web.UI;
     using System.Web.UI.WebControls;
 
     using IndividueleOpdracht.Controllers;
 
+    using Microsoft.AspNet.Identity.Owin;
+
+    #endregion
+
+    /// <summary>The login.</summary>
     public partial class Login : Page
     {
+        /// <summary>The page_ load.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             RegisterHyperLink.NavigateUrl = "Register";
+
             // Enable this once you have account confirmation enabled for password reset functionality
-            //ForgotPasswordHyperLink.NavigateUrl = "Forgot";
+            // ForgotPasswordHyperLink.NavigateUrl = "Forgot";
             OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
             var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
-            if (!String.IsNullOrEmpty(returnUrl))
+            if (!string.IsNullOrEmpty(returnUrl))
             {
                 RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
             }
         }
 
+        /// <summary>The log in.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void LogIn(object sender, EventArgs e)
         {
             AuthenticateEventArgs f =(AuthenticateEventArgs)e;
@@ -49,6 +67,7 @@ namespace IndividueleOpdracht.Account
                 {
                     result = SignInStatus.Failure;
                 }
+
                 switch (result)
                 {
                     case SignInStatus.Success:
@@ -59,9 +78,9 @@ namespace IndividueleOpdracht.Account
                         Response.Redirect("/Account/Lockout");
                         break;
                     case SignInStatus.RequiresVerification:
-                        Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}", 
-                                                        Request.QueryString["ReturnUrl"],
-                                                        RememberMe.Checked),
+                        Response.Redirect(string.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}", 
+                                                        Request.QueryString["ReturnUrl"], 
+                                                        RememberMe.Checked), 
                                           true);
                         break;
                     case SignInStatus.Failure:

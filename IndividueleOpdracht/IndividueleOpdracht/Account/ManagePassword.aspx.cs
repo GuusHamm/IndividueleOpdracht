@@ -1,27 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ManagePassword.aspx.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The manage password.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace IndividueleOpdracht.Account
 {
+    #region
+
+    using System;
+    using System.Web;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+
+    #endregion
+
+    /// <summary>The manage password.</summary>
     public partial class ManagePassword : System.Web.UI.Page
     {
+        /// <summary>Gets the success message.</summary>
+        /// <value>The success message.</value>
         protected string SuccessMessage
         {
             get;
             private set;
         }
 
+        /// <summary>The has password.</summary>
+        /// <param name="manager">The manager.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         private bool HasPassword(ApplicationUserManager manager)
         {
             return manager.HasPassword(User.Identity.GetUserId());
         }
 
+        /// <summary>The page_ load.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -49,6 +68,9 @@ namespace IndividueleOpdracht.Account
             }
         }
 
+        /// <summary>The change password_ click.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void ChangePassword_Click(object sender, EventArgs e)
         {
             if (IsValid)
@@ -69,6 +91,9 @@ namespace IndividueleOpdracht.Account
             }
         }
 
+        /// <summary>The set password_ click.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void SetPassword_Click(object sender, EventArgs e)
         {
             if (IsValid)
@@ -87,11 +112,13 @@ namespace IndividueleOpdracht.Account
             }
         }
 
+        /// <summary>The add errors.</summary>
+        /// <param name="result">The result.</param>
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                ModelState.AddModelError(string.Empty, error);
             }
         }
     }

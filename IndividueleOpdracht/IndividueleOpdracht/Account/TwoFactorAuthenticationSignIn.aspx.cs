@@ -1,27 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using IndividueleOpdracht.Models;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="TwoFactorAuthenticationSignIn.aspx.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The two factor authentication sign in.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace IndividueleOpdracht.Account
 {
+    #region
+
+    using System;
+    using System.Linq;
+    using System.Web;
+
+    using IndividueleOpdracht.Models;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+
+    #endregion
+
+    /// <summary>The two factor authentication sign in.</summary>
     public partial class TwoFactorAuthenticationSignIn : System.Web.UI.Page
     {
-        private ApplicationSignInManager signinManager;
+        /// <summary>The manager.</summary>
         private ApplicationUserManager manager;
 
+        /// <summary>The signin manager.</summary>
+        private ApplicationSignInManager signinManager;
+
+        /// <summary>Initializes a new instance of the <see cref="TwoFactorAuthenticationSignIn"/> class.</summary>
         public TwoFactorAuthenticationSignIn()
         {
             manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
         }
 
+        /// <summary>The page_ load.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             var userId = signinManager.GetVerifiedUserId<ApplicationUser, string>();
@@ -29,11 +48,15 @@ namespace IndividueleOpdracht.Account
             {
                 Response.Redirect("/Account/Error", true);
             }
+
             var userFactors = manager.GetValidTwoFactorProviders(userId);
             Providers.DataSource = userFactors.Select(x => x).ToList();
             Providers.DataBind();            
         }
 
+        /// <summary>The code submit_ click.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void CodeSubmit_Click(object sender, EventArgs e)
         {
             bool rememberMe = false;
@@ -56,6 +79,9 @@ namespace IndividueleOpdracht.Account
             }
         }
 
+        /// <summary>The provider submit_ click.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void ProviderSubmit_Click(object sender, EventArgs e)
         {
             if (!signinManager.SendTwoFactorCode(Providers.SelectedValue))

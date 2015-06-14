@@ -1,41 +1,63 @@
-﻿using System;
-using System.Web;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Owin;
-using IndividueleOpdracht.Models;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="RegisterExternalLogin.aspx.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The register external login.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace IndividueleOpdracht.Account
 {
+    #region
+
+    using System;
+    using System.Web;
+
+    using IndividueleOpdracht.Models;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+
+    #endregion
+
+    /// <summary>The register external login.</summary>
     public partial class RegisterExternalLogin : System.Web.UI.Page
     {
+        /// <summary>Gets the provider name.</summary>
+        /// <value>The provider name.</value>
         protected string ProviderName
         {
-            get { return (string)ViewState["ProviderName"] ?? String.Empty; }
+            get { return (string)ViewState["ProviderName"] ?? string.Empty; }
             private set { ViewState["ProviderName"] = value; }
         }
 
+        /// <summary>Gets the provider account key.</summary>
+        /// <value>The provider account key.</value>
         protected string ProviderAccountKey
         {
-            get { return (string)ViewState["ProviderAccountKey"] ?? String.Empty; }
+            get { return (string)ViewState["ProviderAccountKey"] ?? string.Empty; }
             private set { ViewState["ProviderAccountKey"] = value; }
         }
 
+        /// <summary>The redirect on fail.</summary>
         private void RedirectOnFail()
         {
-            Response.Redirect((User.Identity.IsAuthenticated) ? "~/Account/Manage" : "~/Account/Login");
+            Response.Redirect(User.Identity.IsAuthenticated ? "~/Account/Manage" : "~/Account/Login");
         }
 
+        /// <summary>The page_ load.</summary>
         protected void Page_Load()
         {
             // Process the result from an auth provider in the request
             ProviderName = IdentityHelper.GetProviderNameFromRequest(Request);
-            if (String.IsNullOrEmpty(ProviderName))
+            if (string.IsNullOrEmpty(ProviderName))
             {
                 RedirectOnFail();
                 return;
             }
+
             if (!IsPostBack)
             {
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -46,6 +68,7 @@ namespace IndividueleOpdracht.Account
                     RedirectOnFail();
                     return;
                 }
+
                 var user = manager.Find(loginInfo.Login);
                 if (user != null)
                 {
@@ -78,19 +101,24 @@ namespace IndividueleOpdracht.Account
                     email.Text = loginInfo.Email;
                 }
             }
-        }        
-        
+        }
+
+        /// <summary>The log in_ click.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void LogIn_Click(object sender, EventArgs e)
         {
             CreateAndLoginUser();
         }
 
+        /// <summary>The create and login user.</summary>
         private void CreateAndLoginUser()
         {
             if (!IsValid)
             {
                 return;
             }
+
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var signInManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
             var user = new ApplicationUser() { UserName = email.Text, Email = email.Text };
@@ -103,6 +131,7 @@ namespace IndividueleOpdracht.Account
                     RedirectOnFail();
                     return;
                 }
+
                 result = manager.AddLogin(user.Id, loginInfo.Login);
                 if (result.Succeeded)
                 {
@@ -111,19 +140,21 @@ namespace IndividueleOpdracht.Account
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // var code = manager.GenerateEmailConfirmationToken(user.Id);
                     // Send this link via email: IdentityHelper.GetUserConfirmationRedirectUrl(code, user.Id)
-
                     IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                     return;
                 }
             }
+
             AddErrors(result);
         }
 
+        /// <summary>The add errors.</summary>
+        /// <param name="result">The result.</param>
         private void AddErrors(IdentityResult result) 
         {
             foreach (var error in result.Errors) 
             {
-                ModelState.AddModelError("", error);
+                ModelState.AddModelError(string.Empty, error);
             }
         }
     }

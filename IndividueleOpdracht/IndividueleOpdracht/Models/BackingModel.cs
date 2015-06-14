@@ -18,6 +18,11 @@ namespace IndividueleOpdracht.Models
     /// <summary>The backing model.</summary>
     public class BackingModel : DatabaseModel
     {
+        /// <summary>Initializes a new instance of the <see cref="BackingModel"/> class.</summary>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="tierId">The tier id.</param>
+        /// <param name="projectId">The project id.</param>
+        /// <param name="backingTime">The backing time.</param>
         public BackingModel(string accountId, string tierId, string projectId, DateTime backingTime)
         {
             this.AccountId = accountId;
