@@ -1,29 +1,29 @@
-﻿namespace IndividueleOpdracht.Controllers
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace IndividueleOpdracht.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using System.Web;
-    using Oracle.DataAccess.Client;
+    using System.IO;
+
+    using System.Data.Sql;
+
+    using Npgsql;
 
     public static class DatabaseController
     {
-        private static OracleConnection oracleConnection;
+        public static NpgsqlConnection Connection { get; private set;}
 
-        public static void Initialize()
+        public static NpgsqlCommand PostgresCommand { get; set; }
+        public static void Initialiaze()
         {
-            oracleConnection = new OracleConnection
-                                   {
-                                       ConnectionString =
-                                           string.Format(
-                                               "User Id={0};Password={1};Data Source=//{2}:{3}/{4}",
-                                               "Guus",
-                                               "password",
-                                               "localhost",
-                                               "1521",
-                                               "xe")
-                                   };
+            string connectionString = "Server=localhost;Database=SE;User ID=postgres;port=5433;Password=password;";
+            Connection = new NpgsqlConnection(connectionString);
+            Connection.Open();
         }
+
+       
+
     }
 }

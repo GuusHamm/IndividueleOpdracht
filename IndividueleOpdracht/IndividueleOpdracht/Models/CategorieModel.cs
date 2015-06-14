@@ -11,6 +11,11 @@
 
         public string Beschrijving { get; private set; }
 
+        public CategorieModel(string naam, string beschrijving)
+        {
+            this.Naam = naam;
+            this.Beschrijving = beschrijving;
+        }
 
         public string Id { get; set; }
 

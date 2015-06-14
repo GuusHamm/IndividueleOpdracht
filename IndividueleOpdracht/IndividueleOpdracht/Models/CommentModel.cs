@@ -9,12 +9,29 @@ namespace IndividueleOpdracht.Models
 
 {
         public string Id { get; set; }
-        public AccountModel PosterId { get; private set; }
-        public CommentModel ReplyId { get; private set; }
-        public ProjectModel ProjectId { get; private set; }
+        public int PosterId { get; private set; }
+        public int ReplyId { get; private set; }
+        public int ProjectId { get; private set; }
         public string Bericht { get; private set; }
         public DateTime PostDate { get; private set; }
-        
+
+        public CommentModel(int posterId, int projectId, string bericht, DateTime postDate)
+        {
+            this.PosterId = posterId;
+            this.ProjectId = projectId;
+            this.PostDate = postDate;
+            this.Bericht = bericht;
+        }
+
+        public CommentModel(int posterId, int replyId, int projectId, string bericht, DateTime postDate)
+        {
+            this.PosterId = posterId;
+            this.ReplyId = replyId;
+            this.ProjectId = projectId;
+            this.Bericht = bericht;
+            this.PostDate = postDate;
+        }
+
         public bool Create()
         {
             throw new NotImplementedException();

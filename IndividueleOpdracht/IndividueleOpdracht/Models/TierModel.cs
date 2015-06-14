@@ -5,11 +5,17 @@
     using System.Linq;
     using System.Web;
 
-    public class TierModel : IDatabaseModel
+    public class TierModel : DatabaseModel
     {
-        public string Id { get; set; }
+        public TierModel(string projectId, string naam, string reward, int prijs)
+        {
+            this.ProjectId = projectId;
+            this.Naam = naam;
+            this.Reward = reward;
+            this.Prijs = prijs;
+        }
 
-        public ProjectModel ProjectId { get; private set; }
+        public string ProjectId { get; private set; }
 
         public string Naam { get; private set; }
 
@@ -17,8 +23,8 @@
 
         public int Prijs { get; private set; }
 
-
-        public bool Create()
+        public string Id { get; set; }
+        public override bool Create()
         {
             throw new NotImplementedException();
         }

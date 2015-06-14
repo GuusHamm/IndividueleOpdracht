@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace IndividueleOpdracht.Models
 {
+    using System.EnterpriseServices;
+
     public interface IDatabaseModel
     {
         string Id { get; set; }

@@ -8,6 +8,10 @@ using IndividueleOpdracht.Models;
 
 namespace IndividueleOpdracht.Account
 {
+    using System.Web.UI.WebControls;
+
+    using IndividueleOpdracht.Controllers;
+
     public partial class Login : Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -25,6 +29,7 @@ namespace IndividueleOpdracht.Account
 
         protected void LogIn(object sender, EventArgs e)
         {
+            AuthenticateEventArgs f =(AuthenticateEventArgs)e;
             if (IsValid)
             {
                 // Validate the user password
@@ -33,12 +38,22 @@ namespace IndividueleOpdracht.Account
 
                 // This doen't count login failures towards account lockout
                 // To enable password failures to trigger lockout, change to shouldLockout: true
-                var result = signinManager.PasswordSignIn(Email.Text, Password.Text, RememberMe.Checked, shouldLockout: false);
+                SignInStatus result;
 
+                if (Password.Text == AccountController.GetPasswordForUser(Email.Text))
+                {
+                    result = SignInStatus.Success;
+                    
+                }
+                else
+                {
+                    result = SignInStatus.Failure;
+                }
                 switch (result)
                 {
                     case SignInStatus.Success:
                         IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                        f.Authenticated = true;
                         break;
                     case SignInStatus.LockedOut:
                         Response.Redirect("/Account/Lockout");
@@ -53,6 +68,7 @@ namespace IndividueleOpdracht.Account
                     default:
                         FailureText.Text = "Invalid login attempt";
                         ErrorMessage.Visible = true;
+                        f.Authenticated = false;
                         break;
                 }
             }

@@ -59,11 +59,11 @@ namespace IndividueleOpdracht
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1028305126686-mbgt59n5p8mshhoc4jhrnfhkqdjkgbb7.apps.googleusercontent.com",
+                ClientSecret = "MZea7WCSUWgetn_O3IIzLcxR"
+            });
         }
     }
 }

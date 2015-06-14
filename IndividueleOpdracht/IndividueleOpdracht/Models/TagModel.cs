@@ -14,6 +14,12 @@
 
         public string Id { get; set; }
 
+        public TagModel(string naam, string beschrijving)
+        {
+            this.Naam = naam;
+            this.Beschrijving = beschrijving;
+        }
+
         public bool Create()
         {
             throw new NotImplementedException();
