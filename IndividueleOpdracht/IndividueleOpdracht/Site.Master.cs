@@ -33,9 +33,31 @@ namespace IndividueleOpdracht
         /// <summary>The _anti xsrf token value.</summary>
         private string _antiXsrfTokenValue;
 
+        /// <summary>The account controller.</summary>
+        private AccountController accountController;
+
+        /// <summary>The project controller.</summary>
         private ProjectController projectController;
 
-        private AccountController accountController;
+        /// <summary>Gets the project controller.</summary>
+        /// <value>The project controller.</value>
+        public ProjectController ProjectController
+        {
+            get
+            {
+                return this.projectController;
+            }
+        }
+
+        /// <summary>Gets the account controller.</summary>
+        /// <value>The account controller.</value>
+        public AccountController AccountController
+        {
+            get
+            {
+                return this.accountController;
+            }
+        }
 
         /// <summary>The page_ init.</summary>
         /// <param name="sender">The sender.</param>
@@ -44,6 +66,7 @@ namespace IndividueleOpdracht
         {
             projectController = new ProjectController();
             accountController = new AccountController();
+
             // The code below helps to protect against XSRF attacks
             var requestCookie = Request.Cookies[AntiXsrfTokenKey];
             Guid requestCookieGuidValue;
@@ -59,11 +82,7 @@ namespace IndividueleOpdracht
                 _antiXsrfTokenValue = Guid.NewGuid().ToString("N");
                 Page.ViewStateUserKey = _antiXsrfTokenValue;
 
-                var responseCookie = new HttpCookie(AntiXsrfTokenKey)
-                {
-                    HttpOnly = true, 
-                    Value = _antiXsrfTokenValue
-                };
+                var responseCookie = new HttpCookie(AntiXsrfTokenKey) { HttpOnly = true, Value = _antiXsrfTokenValue };
                 if (FormsAuthentication.RequireSSL && Request.IsSecureConnection)
                 {
                     responseCookie.Secure = true;
@@ -106,24 +125,6 @@ namespace IndividueleOpdracht
 
         }
 
-        /// <summary>Gets the project controller.</summary>
-        /// <value>The project controller.</value>
-        public ProjectController ProjectController
-        {
-            get
-            {
-                return this.projectController;
-            }
-        }
-
-        public AccountController AccountController
-        {
-            get
-            {
-                return this.accountController;
-            }
-        }
-
         /// <summary>The unnamed_ logging out.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
@@ -132,6 +133,9 @@ namespace IndividueleOpdracht
             Context.GetOwinContext().Authentication.SignOut();
         }
 
+        /// <summary>The search button_ on click.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void SearchButton_OnClick(object sender, EventArgs e)
         {
          Response.Redirect("Project.aspx?search="+ SearchBox.Text);  

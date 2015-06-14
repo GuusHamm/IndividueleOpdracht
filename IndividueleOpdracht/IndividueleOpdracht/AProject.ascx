@@ -1,4 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AProject.ascx.cs" Inherits="IndividueleOpdracht.AProject" %>
+<%@ Import Namespace="System.Web.DynamicData" %>
+<%@ Import Namespace="System.Web.UI" %>
+<%@ Import Namespace="System.Web.UI.WebControls" %>
+<%@ Import Namespace="System.Web.UI.WebControls" %>
+<%@ Import Namespace="System.Web.UI.WebControls.Expressions" %>
+<%@ Import Namespace="System.Web.UI.WebControls.WebParts" %>
 
 <div class="panel panel-primary">
     <div class="panel-body">

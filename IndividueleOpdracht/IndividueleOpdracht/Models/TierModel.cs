@@ -9,12 +9,6 @@
 
 namespace IndividueleOpdracht.Models
 {
-    #region
-
-    using System;
-
-    #endregion
-
     /// <summary>The tier model.</summary>
     public class TierModel : DatabaseModel
     {
@@ -50,6 +44,5 @@ namespace IndividueleOpdracht.Models
         /// <summary>Gets or sets the id.</summary>
         /// <value>The id.</value>
         public string Id { get; set; }
-
     }
 }

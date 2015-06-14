@@ -8,10 +8,6 @@
 <%@ MasterType virtualpath="~/Site.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-
-
-
     <div class="well">
         <div class="form form-horizontal">
             <fieldset>
@@ -64,8 +60,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        <button class="btn btn-default">Cancel</button>
-                        <asp:Button ID="SubmitButton" runat="server" Text="Submit" OnClick="CreateANewProject" />
+                        <asp:Button ID="SubmitButton" CssClass="btn btn-default" runat="server" Text="Submit" OnClick="CreateANewProject" />
                     </div>
                 </div>
             </fieldset>

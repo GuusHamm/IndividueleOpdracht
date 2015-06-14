@@ -1,11 +1,12 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="IndividueleOpdracht._Default" %>
-<%@ Register TagPrefix="uc1" TagName="aproject" Src="~/AProject.ascx" %>
 <%@ Import Namespace="System.Web.DynamicData" %>
 <%@ Import Namespace="System.Web.UI" %>
 <%@ Import Namespace="System.Web.UI.WebControls" %>
 <%@ Import Namespace="System.Web.UI.WebControls" %>
 <%@ Import Namespace="System.Web.UI.WebControls.Expressions" %>
 <%@ Import Namespace="System.Web.UI.WebControls.WebParts" %>
+<%@ Register TagPrefix="uc1" TagName="aproject" Src="~/AProject.ascx" %>
+<%@ MasterType virtualpath="~/Site.Master" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 

@@ -13,7 +13,6 @@ namespace IndividueleOpdracht
 
     using System;
 
-    using IndividueleOpdracht.Controllers;
     using IndividueleOpdracht.Models;
 
     #endregion
@@ -31,8 +30,8 @@ namespace IndividueleOpdracht
 
         /// <summary>The fill uc.</summary>
         /// <param name="projectModel">The project model.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        public void FillUC(ProjectModel projectModel,int backings)
+        /// <param name="backings">The backings.</param>
+        public void FillUC(ProjectModel projectModel, int backings)
         {
 
             LiteralNaam.Text = projectModel.Naam;

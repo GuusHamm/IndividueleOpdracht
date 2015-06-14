@@ -9,12 +9,6 @@
 
 namespace IndividueleOpdracht.Models
 {
-    #region
-
-    using System;
-
-    #endregion
-
     /// <summary>The tag model.</summary>
     public class TagModel : IDatabaseModel
     {
@@ -38,6 +32,5 @@ namespace IndividueleOpdracht.Models
         /// <summary>Gets or sets the id.</summary>
         /// <value>The id.</value>
         public string Id { get; set; }
-        
     }
 }

@@ -38,5 +38,17 @@ namespace IndividueleOpdracht {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView ProjectView;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new IndividueleOpdracht.SiteMaster Master {
+            get {
+                return ((IndividueleOpdracht.SiteMaster)(base.Master));
+            }
+        }
     }
 }

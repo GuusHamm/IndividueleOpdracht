@@ -27,9 +27,6 @@ namespace IndividueleOpdracht
         /// <summary>The project controller.</summary>
         private ProjectController projectController = new ProjectController();
 
-        /// <summary>The project models.</summary>
-        private List<ProjectModel> projectModels;
-
         /// <summary>The page_ load.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
@@ -42,11 +39,17 @@ namespace IndividueleOpdracht
             }
         }
 
+        /// <summary>The page_ pre render.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void Page_PreRender(object sender, EventArgs e)
         {
             ProjectView.DataBind();
         }
 
+        /// <summary>The project view_ on item data bound.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void ProjectView_OnItemDataBound(object sender, ListViewItemEventArgs e)
         {
             ProjectModel projectModel = e.Item.DataItem as ProjectModel;
@@ -54,12 +57,15 @@ namespace IndividueleOpdracht
             AProject aProject = e.Item.FindControl("AProject") as AProject;
 
             aProject.FillUC(
-                projectModel,
+                projectModel, 
                 projectController.GetNumberOfBackingsOfProject(Convert.ToInt32(projectModel.Id)));
 
             this.ProjectSelectionDD.Items.Add(new ListItem(projectModel.Naam, projectModel.Id));
         }
 
+        /// <summary>The btn goto project_ on click.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         protected void BtnGotoProject_OnClick(object sender, EventArgs e)
         {
             this.Response.Redirect("ProjectDetails.aspx?id=" + this.ProjectSelectionDD.SelectedValue);

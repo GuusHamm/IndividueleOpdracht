@@ -94,7 +94,7 @@ namespace IndividueleOpdracht
             AProject aProject = e.Item.FindControl("AProject") as AProject;
 
             aProject.FillUC(
-                projectModel,
+                projectModel, 
                 projectController.GetNumberOfBackingsOfProject(Convert.ToInt32(projectModel.Id)));
         }
 
@@ -140,6 +140,7 @@ namespace IndividueleOpdracht
                     projectModel.AddComments(comments);
                     Response.Redirect(Request.RawUrl);
                 }
+
                 Response.Redirect(Request.RawUrl);
             }
             else

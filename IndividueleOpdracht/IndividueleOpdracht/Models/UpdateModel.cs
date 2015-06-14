@@ -33,6 +33,5 @@ namespace IndividueleOpdracht.Models
         /// <summary>Gets or sets the id.</summary>
         /// <value>The id.</value>
         public string Id { get; set; }
-
     }
 }

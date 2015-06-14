@@ -1,13 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Project.aspx.cs" Inherits="IndividueleOpdracht.Project" %>
-
-<%@ MasterType virtualpath="~/Site.Master" %>
-<%@ Register TagPrefix="uc1" TagName="aproject" Src="~/AProject.ascx" %>
 <%@ Import Namespace="System.Web.DynamicData" %>
 <%@ Import Namespace="System.Web.UI" %>
 <%@ Import Namespace="System.Web.UI.WebControls" %>
 <%@ Import Namespace="System.Web.UI.WebControls" %>
 <%@ Import Namespace="System.Web.UI.WebControls.Expressions" %>
 <%@ Import Namespace="System.Web.UI.WebControls.WebParts" %>
+
+<%@ MasterType virtualpath="~/Site.Master" %>
+<%@ Register TagPrefix="uc1" TagName="aproject" Src="~/AProject.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">

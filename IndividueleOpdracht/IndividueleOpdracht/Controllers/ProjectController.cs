@@ -26,7 +26,9 @@ namespace IndividueleOpdracht.Controllers
     /// <summary>The business logic that handles project things.</summary>
     public class ProjectController
     {
+        /// <summary>The account controller.</summary>
         AccountController accountController = new AccountController();
+
         /// <summary>Creates a project model and inserts that into the database.</summary>
         /// <param name="beschrijving">The beschrijving.</param>
         /// <param name="naam">The naam.</param>
@@ -262,7 +264,6 @@ namespace IndividueleOpdracht.Controllers
                 command.ExecuteNonQuery();
             }
         }
-      
 
         /// <summary>The delete tier.</summary>
         /// <param name="id">The id.</param>
@@ -328,13 +329,16 @@ namespace IndividueleOpdracht.Controllers
             return projectModel;
         }
 
+        /// <summary>The get projects by name.</summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The <see cref="List"/>.</returns>
         public List<ProjectModel> GetProjectsByName(string criteria)
         {
             List<ProjectModel> projectModels = new List<ProjectModel>();
             NpgsqlCommand command;
 
             command = new NpgsqlCommand(
-                    "Select p.*,u.*,c.*  from projects p join users u on (p.creatorid = u.id) join categorie c on (p.categorieid = c.id) where p.naam like upper(:value1) or p.beschrijving like upper(:value1)",
+                    "Select p.*,u.*,c.*  from projects p join users u on (p.creatorid = u.id) join categorie c on (p.categorieid = c.id) where p.naam like upper(:value1) or p.beschrijving like upper(:value1)", 
                     DatabaseController.Connection);
             command.Parameters.Add("value1", NpgsqlDbType.Text);
             command.Parameters[0].Value = "%" + criteria + "%";
@@ -356,14 +360,14 @@ namespace IndividueleOpdracht.Controllers
                     DateTime.TryParse(Convert.ToString(dr[8]), out endDate);
                     int views = Convert.ToInt32(dr[9]);
                     projectModel = new ProjectModel(
-                        beschrijving,
-                        naam,
-                        creator,
-                        geldNodig,
-                        startDate,
-                        endDate,
-                        geldBehaald,
-                        views,
+                        beschrijving, 
+                        naam, 
+                        creator, 
+                        geldNodig, 
+                        startDate, 
+                        endDate, 
+                        geldBehaald, 
+                        views, 
                         new CategorieModel(dr[24].ToString(), dr[25].ToString()));
                     projectModel.Id = dr[0].ToString();
                     projectModels.Add(projectModel);
@@ -372,6 +376,7 @@ namespace IndividueleOpdracht.Controllers
 
             return projectModels;
         }
+
         /// <summary>The get number of backings of project.</summary>
         /// <param name="projectid">The projectid.</param>
         /// <returns>The <see cref="int"/>.</returns>
@@ -411,7 +416,7 @@ namespace IndividueleOpdracht.Controllers
             }
 
             NpgsqlCommand command = new NpgsqlCommand(
-                "Select c.* from comments c where c.projectid = :value1 ;",
+                "Select c.* from comments c where c.projectid = :value1 ;", 
                 DatabaseController.Connection);
 
             command.Parameters.Add("value1", NpgsqlDbType.Integer);
@@ -624,7 +629,7 @@ namespace IndividueleOpdracht.Controllers
            
                 command =
                     new NpgsqlCommand(
-                        "Select p.*,u.*,c.*  from projects p join users u on (p.creatorid = u.id) join categorie c on (p.categorieid = c.id) where (select count(*) from backing where projectid = p.id) > :value1 ;",
+                        "Select p.*,u.*,c.*  from projects p join users u on (p.creatorid = u.id) join categorie c on (p.categorieid = c.id) where (select count(*) from backing where projectid = p.id) > :value1 ;", 
                         DatabaseController.Connection);
 
                 command.Parameters.Add("value1", NpgsqlDbType.Integer);
@@ -648,14 +653,14 @@ namespace IndividueleOpdracht.Controllers
                     DateTime.TryParse(Convert.ToString(dr[8]), out endDate);
                     int views = Convert.ToInt32(dr[9]);
                     ProjectModel project = new ProjectModel(
-                        beschrijving,
-                        naam,
-                        creator,
-                        geldNodig,
-                        startDate,
-                        endDate,
-                        geldBehaald,
-                        views,
+                        beschrijving, 
+                        naam, 
+                        creator, 
+                        geldNodig, 
+                        startDate, 
+                        endDate, 
+                        geldBehaald, 
+                        views, 
                         new CategorieModel(dr[24].ToString(), dr[25].ToString()));
                     project.Id = dr[0].ToString();
                     projects.Add(project);
@@ -664,7 +669,7 @@ namespace IndividueleOpdracht.Controllers
 
             return projects;
         }
-        
+
         /// <summary>Gets the tiermodel beloning to the id.</summary>
         /// <param name="id">The id.</param>
         /// <param name="tierModel">The tier model.</param>
@@ -706,6 +711,9 @@ namespace IndividueleOpdracht.Controllers
             return tier;
         }
 
+        /// <summary>The get tag.</summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The <see cref="TagModel"/>.</returns>
         public TagModel GetTag(int id)
         {
             TagModel tagModel = null;
