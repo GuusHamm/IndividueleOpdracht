@@ -133,7 +133,7 @@ namespace IndividueleOpdracht
         {
             CommentTextBoxValidator.Enabled = false;
             projectController.CreateBacking("1", TierDD.SelectedValue, Request.QueryString["id"]);
-            Response.Redirect(Request.RawUrlz);
+            Response.Redirect(Request.RawUrl);
         }
 
         protected void TierViewer_OnItemDataBound(object sender, ListViewItemEventArgs e)

@@ -15,6 +15,8 @@ namespace IndividueleOpdracht.Controllers
     using System.Web;
     using System.Web.Services.Description;
 
+    using Antlr.Runtime;
+
     using IndividueleOpdracht.Models;
 
     using Npgsql;
@@ -81,6 +83,25 @@ namespace IndividueleOpdracht.Controllers
             return projectModel;
         }
 
+        /// <summary>The delete project.</summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public bool DeleteProject(int id)
+        {
+            NpgsqlCommand command = new NpgsqlCommand("Delete from projects where id = :value1;", DatabaseController.Connection);
+
+            command.Parameters.Add("value1", NpgsqlDbType.Integer);
+            command.Parameters[0].Value = id;
+
+            if (command.ExecuteNonQuery() != 0)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
         /// <summary>Creates a backingmodel and inserts that into the database.</summary>
         /// <param name="accountId">The account id.</param>
         /// <param name="tierId">The tier id.</param>
@@ -131,6 +152,24 @@ namespace IndividueleOpdracht.Controllers
             return backingModel;
         }
 
+        /// <summary>The delete backing.</summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public bool DeleteBacking(int id)
+        {
+            NpgsqlCommand command = new NpgsqlCommand("Delete from backing where id = :value1;", DatabaseController.Connection);
+
+            command.Parameters.Add("value1", NpgsqlDbType.Integer);
+            command.Parameters[0].Value = id;
+
+            if (command.ExecuteNonQuery() != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>Creates a commentModel and inserts that into the database.</summary>
         /// <param name="tekst">The tekst.</param>
         /// <param name="commenterID">The commenter id.</param>
@@ -140,7 +179,7 @@ namespace IndividueleOpdracht.Controllers
         {
             CommentModel commentModel = new CommentModel(commenterID,projectID,tekst,DateTime.Now);
 
-            NpgsqlCommand command = new NpgsqlCommand("Insert into comments(id,posterid,replyid,projectid,bericht,postdate) values(nextval('comments_seq'),:value1,null,:value2,:value3,:value4) ;", DatabaseController.Connection);
+            NpgsqlCommand command = new NpgsqlCommand("Insert into comments(id,posterid,replyid,projectid,bericht,postdate) values(nextval('comments_seq'),:value1,null,:value2,:value3,:value4) returning id ;", DatabaseController.Connection);
 
             command.Parameters.Add("value1", NpgsqlDbType.Integer);
             command.Parameters[0].Value = commentModel.PosterId;
@@ -154,18 +193,73 @@ namespace IndividueleOpdracht.Controllers
             command.Parameters.Add("value4", NpgsqlDbType.Date);
             command.Parameters[3].Value = commentModel.PostDate;
 
-            if (command.ExecuteNonQuery() != 0)
+            using (NpgsqlDataReader dr = command.ExecuteReader())
             {
-                return commentModel;
-            }
-            else
-            {
-                return null;
+                while (dr.Read())
+                {
+                    commentModel.Id = dr[0].ToString();
+                    return commentModel;
+                }
             }
 
-
+            return null;
         }
 
+        /// <summary>Creates a new tier model and adds it to the database.</summary>
+        /// <param name="projectId">The project Id.</param>
+        /// <param name="naam">The naam.</param>
+        /// <param name="reward">The reward.</param>
+        /// <param name="prijs">The prijs.</param>
+        /// <returns>The <see cref="TierModel"/>.</returns>
+        public TierModel CreateTier(int projectId, string naam,string reward, int prijs)
+        {
+            TierModel tierModel = new TierModel(projectId.ToString(), naam, reward, prijs);
+
+            NpgsqlCommand command = new NpgsqlCommand("Insert into tier(id,projectid,naam,reward,prijs) values(nextval('tier_seq'),:value1,:value2,:value3, :value4) returning id;", DatabaseController.Connection);
+
+            command.Parameters.Add("value1", NpgsqlDbType.Integer);
+            command.Parameters[0].Value = Convert.ToInt32(tierModel.ProjectId);
+
+            command.Parameters.Add("value2", NpgsqlDbType.Text);
+            command.Parameters[1].Value = tierModel.Naam;
+
+            command.Parameters.Add("value3", NpgsqlDbType.Text);
+            command.Parameters[2].Value = tierModel.Reward;
+
+            command.Parameters.Add("value4", NpgsqlDbType.Integer);
+            command.Parameters[3].Value = tierModel.Prijs;
+
+            using (NpgsqlDataReader dr = command.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    tierModel.Id = dr[0].ToString();
+                    return tierModel;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>The delete tier.</summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public bool DeleteTier(int id)
+        {
+            NpgsqlCommand command = new NpgsqlCommand("Delete from tier where id = :value1;", DatabaseController.Connection);
+
+            command.Parameters.Add("value1", NpgsqlDbType.Integer);
+            command.Parameters[0].Value = id;
+
+            if (command.ExecuteNonQuery() != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+     
         /// <summary>Retrieves the projectmodel for a id.</summary>
         /// <param name="id">The id.</param>
         /// <returns>The <see cref="ProjectModel"/>.</returns>
