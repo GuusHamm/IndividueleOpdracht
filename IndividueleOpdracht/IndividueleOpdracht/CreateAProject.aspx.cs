@@ -24,13 +24,14 @@ namespace IndividueleOpdracht
     public partial class CreateAProject : System.Web.UI.Page
     {
         /// <summary>The project controller.</summary>
-        ProjectController projectController = new ProjectController();
+        private ProjectController projectController;
 
         /// <summary>The page_ load.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.projectController = this.Master.ProjectController;
             List<TagModel> tags = projectController.GetAllTags();
             List<CategorieModel> categories = projectController.GetAllCategories();
 
@@ -48,7 +49,7 @@ namespace IndividueleOpdracht
         /// <summary>The submit button_ on click.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        protected void SubmitButton_OnClick(object sender, EventArgs e)
+        protected void CreateANewProject(object sender, EventArgs e)
         {
             if (CategorieDD.SelectedValue != "0")
             {
@@ -64,7 +65,7 @@ namespace IndividueleOpdracht
                     projectController.AddTagToProject(projectModel, Convert.ToInt32(TagsDD.SelectedValue));
                 }
 
-                Response.Redirect("ProjectViewer.aspx?id=" + projectModel.Id+ "&newproject=true");
+                Response.Redirect("ProjectDetails.aspx?id=" + projectModel.Id+ "&newproject=true");
             }
             else
             {

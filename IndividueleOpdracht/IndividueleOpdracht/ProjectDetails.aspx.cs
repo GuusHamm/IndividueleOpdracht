@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ProjectViewer.aspx.cs" company="">
+// <copyright file="ProjectDetails.aspx.cs" company="">
 //   
 // </copyright>
 // <summary>
@@ -14,6 +14,8 @@ namespace IndividueleOpdracht
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Web;
+    using System.Web.Security;
     using System.Web.UI.WebControls;
 
     using IndividueleOpdracht.Controllers;
@@ -22,13 +24,10 @@ namespace IndividueleOpdracht
     #endregion
 
     /// <summary>The project viewer.</summary>
-    public partial class ProjectViewer : System.Web.UI.Page
+    public partial class ProjectDetails : System.Web.UI.Page
     {
         /// <summary>The project controller.</summary>
         private ProjectController projectController = new ProjectController();
-
-        /// <summary>The project models.</summary>
-        private List<ProjectModel> projectModels;
 
         /// <summary>The page_ load.</summary>
         /// <param name="sender">The sender.</param>
@@ -36,6 +35,7 @@ namespace IndividueleOpdracht
        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1121:UseBuiltInTypeAlias", Justification = "Reviewed. Suppression is OK here.")]
         protected void Page_Load(object sender, EventArgs e)
         {
+            string user = this.User.Identity.ToString();
             int id;
             
             if (int.TryParse(Request.QueryString["id"], out id))
@@ -105,7 +105,7 @@ namespace IndividueleOpdracht
         {
             CommentModel comment = e.Item.DataItem as CommentModel;
             Literal commentCreator = e.Item.FindControl("CommentCreator") as Literal;
-            commentCreator.Text = AccountController.RetrieveAccount(comment.PosterId).Naam;
+            commentCreator.Text = this.Master.AccountController.RetrieveAccount(comment.PosterId).Naam;
 
             Literal commentText = e.Item.FindControl("CommentText") as Literal;
             commentText.Text = comment.Bericht;
@@ -126,14 +126,27 @@ namespace IndividueleOpdracht
         /// <param name="e">The e.</param>
         protected void CommentButton_OnClick(object sender, EventArgs e)
         {
-            // todo make dynamic
-            foreach (ProjectModel projectModel in projectController.GetProjects(Convert.ToInt32(Request.QueryString["id"])))
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
             {
-                List<CommentModel> comments = projectModel.Comments;
-                comments.Add(projectController.CreateComment(CommentTextBox.Text, 1, Convert.ToInt32(projectModel.Id)));
-                projectModel.AddComments(comments);
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+
+
+                foreach (ProjectModel projectModel in projectController.GetProjects(Convert.ToInt32(Request.QueryString["id"])))
+                {
+                    List<CommentModel> comments = projectModel.Comments;
+                    int accountID = Convert.ToInt32(this.Master.AccountController.GetAccountId(ticket.Name));
+                    comments.Add(projectController.CreateComment(CommentTextBox.Text, accountID, Convert.ToInt32(projectModel.Id)));
+                    projectModel.AddComments(comments);
+                    Response.Redirect(Request.RawUrl);
+                }
                 Response.Redirect(Request.RawUrl);
             }
+            else
+            {
+                this.ExtraStuffDiv.InnerHtml = @"<div class=""alert alert-dismissable alert-danger"">    <button type=""button"" class=""close"" data-dismiss=""alert"">×</button> Je moet ingelogd zijn om te kunnen commenten.</div>";
+            }
+            
         }
 
         /// <summary>The back button_ on click.</summary>

@@ -22,9 +22,11 @@ namespace IndividueleOpdracht.Controllers
 
     #endregion
 
+
     /// <summary>The business logic that handles project things.</summary>
     public class ProjectController
     {
+        AccountController accountController = new AccountController();
         /// <summary>Creates a project model and inserts that into the database.</summary>
         /// <param name="beschrijving">The beschrijving.</param>
         /// <param name="naam">The naam.</param>
@@ -38,7 +40,9 @@ namespace IndividueleOpdracht.Controllers
             DateTime startDateTime = DateTime.Now;
             DateTime endDateTime = startDateTime.AddDays(runningTime);
             CategorieModel categorieModel = this.GetCategorieOfProject(categorieID, null);
-            AccountModel creator = AccountController.RetrieveAccount(creatorID);
+
+            
+            AccountModel creator = this.accountController.RetrieveAccount(creatorID);
 
             // Creates a new project model
             ProjectModel projectModel = new ProjectModel(beschrijving.ToUpper(), naam.ToUpper(), creator, geldNodig, startDateTime, endDateTime, 0, 0, categorieModel);

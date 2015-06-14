@@ -48,6 +48,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><asp:TextBox ID="SearchBox" runat="server" CssClass="navbar-form col-lg-8"></asp:TextBox></li>
                     <li> <asp:Button ID="SearchButton" runat="server" Text="Search" OnClick="SearchButton_OnClick" CssClass="btn btn-default btn-raised" /></li>
+                    <li> <asp:LoginStatus ID="LoginStatus1" runat="server"  />
+                    </li>
                 </ul>
             </div>
         </div>

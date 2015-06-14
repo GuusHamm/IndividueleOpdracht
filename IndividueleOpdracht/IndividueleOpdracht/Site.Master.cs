@@ -33,11 +33,17 @@ namespace IndividueleOpdracht
         /// <summary>The _anti xsrf token value.</summary>
         private string _antiXsrfTokenValue;
 
+        private ProjectController projectController;
+
+        private AccountController accountController;
+
         /// <summary>The page_ init.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
         protected void Page_Init(object sender, EventArgs e)
         {
+            projectController = new ProjectController();
+            accountController = new AccountController();
             // The code below helps to protect against XSRF attacks
             var requestCookie = Request.Cookies[AntiXsrfTokenKey];
             Guid requestCookieGuidValue;
@@ -98,6 +104,24 @@ namespace IndividueleOpdracht
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>Gets the project controller.</summary>
+        /// <value>The project controller.</value>
+        public ProjectController ProjectController
+        {
+            get
+            {
+                return this.projectController;
+            }
+        }
+
+        public AccountController AccountController
+        {
+            get
+            {
+                return this.accountController;
+            }
         }
 
         /// <summary>The unnamed_ logging out.</summary>

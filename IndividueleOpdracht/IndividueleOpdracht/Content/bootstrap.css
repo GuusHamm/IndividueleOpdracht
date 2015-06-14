@@ -2554,6 +2554,7 @@ Then, run this script to get the list.
 }
 body {
   background-color: #eeeeee;
+    padding-top: 70px;
 }
 body.inverse {
   background: #333333;

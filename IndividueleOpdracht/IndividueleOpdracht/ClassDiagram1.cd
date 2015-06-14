@@ -1,118 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="IndividueleOpdracht.Models.ProjectModel">
-    <Position X="4.5" Y="6" Width="2.25" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AgQAAAAAAAgAAAAgAAAABAAgAABAAEAAEAAAAGEAIAA=</HashCode>
-      <FileName>Models\ProjectModel.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Tags" />
-      <Property Name="Comments" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="IndividueleOpdracht.Models.AccountModel">
-    <Position X="9.75" Y="0.5" Width="2.25" />
-    <NestedTypes>
-      <Enum Name="IndividueleOpdracht.Models.AccountModel.Soort" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Models\AccountModel.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
-    <TypeIdentifier>
-      <HashCode>AAQCQAAIAAAAAAAAAAhAhAAgAAjAAEAAAgAAAQAAAAA=</HashCode>
-      <FileName>Models\AccountModel.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="IndividueleOpdracht.Models.CategorieModel">
-    <Position X="7" Y="10.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAQCAAAAAAAAAAAAAAAABAAgAABAAEAAAAAAAAEAAAA=</HashCode>
-      <FileName>Models\CategorieModel.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="IndividueleOpdracht.Models.TagModel">
-    <Position X="7.25" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQCAAAAAAAAAAAAAAAABAAgAABAAEAAAAAAAAEAAAA=</HashCode>
-      <FileName>Models\TagModel.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="IndividueleOpdracht.Models.TierModel">
-    <Position X="4" Y="10.25" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAAAABAAgBABAIEAAAAAAAAAAAQA=</HashCode>
-      <FileName>Models\TierModel.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="ProjectId" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="IndividueleOpdracht.Models.BackingModel">
-    <Position X="10.25" Y="10.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAgAQAAAgBABQAEAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\BackingModel.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="AccountId" />
-      <Property Name="TierId" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="IndividueleOpdracht.Models.UpdateModel">
-    <Position X="4.25" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQCAAAAAAAAABAAAAAAAAAghABAAEAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\UpdateModel.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="ProjectId" />
-    </ShowAsAssociation>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="IndividueleOpdracht.Models.CommentModel">
-    <Position X="8" Y="6.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAQCAAAAAAAAABAAAAAAABAghABAAEAAAgAAAAAAAAA=</HashCode>
-      <FileName>Models\CommentModel.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="PosterId" />
-      <Property Name="ReplyId" />
-      <Property Name="ProjectId" />
-    </ShowAsAssociation>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="IndividueleOpdracht.Controllers.AccountController">
-    <Position X="0.5" Y="4.5" Width="2.5" />
+    <Position X="2.75" Y="4.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAIAAAAAAABAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAABAAAABAAAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>Controllers\AccountController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IndividueleOpdracht.Controllers.ProjectController">
-    <Position X="0.5" Y="6.5" Width="3" />
+    <Position X="2.5" Y="7" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAABAAAAAEAAAAAAgAIAAAAABAUAAAQAA=</HashCode>
+      <HashCode>IKAAIAAAAAABAEACAEAACgEgACgAIAAAIgAAQAAASAA=</HashCode>
       <FileName>Controllers\ProjectController.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Field Name="projectCache" />
-    </ShowAsCollectionAssociation>
   </Class>
-  <Interface Name="IndividueleOpdracht.Models.IDatabaseModel">
-    <Position X="11.75" Y="6.75" Width="1.5" />
+  <Class Name="IndividueleOpdracht.CreateAProject">
+    <Position X="6.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAgAABAAEAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\IDatabaseModel.cs</FileName>
+      <HashCode>CAAAAAAAAAAAAACAoBAAAAAAAEIQAAAAAAAAAAIEEAA=</HashCode>
+      <FileName>CreateAProject.aspx.cs</FileName>
     </TypeIdentifier>
-  </Interface>
+    <ShowAsAssociation>
+      <Field Name="projectController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IndividueleOpdracht.Project">
+    <Position X="10" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAABAiAABAAQAAAAAAAAAQBAAAAAAIEAAA=</HashCode>
+      <FileName>Project.aspx.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="projectController" />
+      <Property Name="Master" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IndividueleOpdracht.ProjectDetails">
+    <Position X="13" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiAAAAECAAAAAAACBBAhAAEgQAAAAAQAAEAgCgIUAAA=</HashCode>
+      <FileName>ProjectDetails.aspx.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="projectController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IndividueleOpdracht.Controllers.DatabaseController">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAEAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\DatabaseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IndividueleOpdracht.SiteMaster" Collapsed="true">
+    <Position X="16.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQKBQAAAIAAEAAABAIAAAAIEQAA=</HashCode>
+      <FileName>Site.Master.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Project.aspx.cs" Inherits="IndividueleOpdracht.Project" %>
 
+<%@ MasterType virtualpath="~/Site.Master" %>
 <%@ Register TagPrefix="uc1" TagName="aproject" Src="~/AProject.ascx" %>
 <%@ Import Namespace="System.Web.DynamicData" %>
 <%@ Import Namespace="System.Web.UI" %>
@@ -22,7 +23,7 @@
     </div>
     <div class="panel panel-default col-md-12">
         <div class="panel-body">
-            <asp:ListView ID="ProjectView" runat="server" OnItemDataBound="ProjectView_OnItemDataBound" OnItemCommand="ProjectView_OnItemCommand" ItemType="IndividueleOpdracht.Models.ProjectModel">
+            <asp:ListView ID="ProjectView" runat="server" OnItemDataBound="ProjectView_OnItemDataBound">
                 <ItemTemplate>
                     <div class="col-md-6">
                         <uc1:aproject runat="server" ID="AProject" />

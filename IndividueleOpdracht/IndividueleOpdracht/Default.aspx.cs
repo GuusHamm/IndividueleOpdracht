@@ -62,7 +62,7 @@ namespace IndividueleOpdracht
 
         protected void BtnGotoProject_OnClick(object sender, EventArgs e)
         {
-            this.Response.Redirect("ProjectViewer.aspx?id=" + this.ProjectSelectionDD.SelectedValue);
+            this.Response.Redirect("ProjectDetails.aspx?id=" + this.ProjectSelectionDD.SelectedValue);
         }
     }
 }

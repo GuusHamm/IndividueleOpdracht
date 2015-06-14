@@ -209,9 +209,10 @@
     <Content Include="Account\Web.config" />
     <Content Include="ClassDiagram1.cd" />
     <Content Include="Project.aspx" />
-    <Content Include="ProjectViewer.aspx" />
+    <Content Include="ProjectDetails.aspx" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CreateAProject.aspx" />
+    <Content Include="LoginPage.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -447,12 +448,12 @@
     <Compile Include="Project.aspx.designer.cs">
       <DependentUpon>Project.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ProjectViewer.aspx.cs">
-      <DependentUpon>ProjectViewer.aspx</DependentUpon>
+    <Compile Include="ProjectDetails.aspx.cs">
+      <DependentUpon>ProjectDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ProjectViewer.aspx.designer.cs">
-      <DependentUpon>ProjectViewer.aspx</DependentUpon>
+    <Compile Include="ProjectDetails.aspx.designer.cs">
+      <DependentUpon>ProjectDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="CreateAProject.aspx.cs">
       <DependentUpon>CreateAProject.aspx</DependentUpon>
@@ -460,6 +461,13 @@
     </Compile>
     <Compile Include="CreateAProject.aspx.designer.cs">
       <DependentUpon>CreateAProject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LoginPage.aspx.cs">
+      <DependentUpon>LoginPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginPage.aspx.designer.cs">
+      <DependentUpon>LoginPage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
